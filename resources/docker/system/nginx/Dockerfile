@@ -72,4 +72,4 @@ RUN rm -rf openssl-1.0.2p/ && rm -rf openssl-1.0.2p.tar.gz
 RUN /usr/local/nginx/conf/nginx.conf
 COPY ./configs/swooleyaf/nginx/nginx.conf /usr/local/nginx/conf/nginx.conf
 COPY ./configs/swooleyaf/nginx/nginx.service /lib/systemd/system/nginx.service
-RUN chmod 754 /lib/systemd/system/nginx.service && systemctl enable nginx
+RUN chmod 754 /lib/systemd/system/nginx.service

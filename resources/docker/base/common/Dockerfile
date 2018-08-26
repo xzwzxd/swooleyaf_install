@@ -5,5 +5,4 @@ RUN yum -y install gdb vim zip nss gcc gcc-c++ net-tools wget htop lsof unzip bz
 RUN wget -O /etc/yum.repos.d/CentOS-Base.repo http://mirrors.aliyun.com/repo/Centos-7.repo
 RUN yum -y update
 RUN yum clean all
-RUN systemctl enable crond
 RUN mkdir /home/configs && mkdir /home/logs && mkdir /usr/local/mysql && mkdir /home/download
