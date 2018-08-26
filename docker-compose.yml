@@ -1,4 +1,4 @@
-version: "1"
+version: "2"
 services:
   basecommon:
     build:
@@ -10,29 +10,21 @@ services:
       context: .
       dockerfile: ./resources/docker/base/nginx/Dockerfile
     image: base-nginx
-    depends_on:
-      - basecommon
   basephp7:
     build:
       context: .
       dockerfile: ./resources/docker/base/php7/Dockerfile
     image: base-php7
-    depends_on:
-      - basecommon
   systemnginx:
     build:
       context: .
       dockerfile: ./resources/docker/system/nginx/Dockerfile
     image: system-nginx
-    depends_on:
-      - basenginx
   systemphp7:
     build:
       context: .
       dockerfile: ./resources/docker/system/php7/Dockerfile
     image: system-php7
-    depends_on:
-      - basephp7
   businessphp7a01api:
     build:
       context: .
@@ -40,8 +32,6 @@ services:
       args:
         - MODULE_PORT=7100
     image: business-php7a01api
-    depends_on:
-      - systemphp7
     ports:
       - "7100"
     command: -n sy_api -s start -module a01api -port 7100
