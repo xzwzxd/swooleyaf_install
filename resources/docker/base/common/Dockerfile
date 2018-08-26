@@ -1,6 +1,6 @@
 FROM docker.io/centos:7
 MAINTAINER jiangwei "jiangwei07061625@163.com"
-RUN yum -y install gdb vim zip nss gcc gcc-c++ net-tools wget htop lsof unzip bzip2 curl-devel libcurl-devel zlib-devel epel-release perl-ExtUtils-MakeMaker expat-devel gettext-devel openssl-devel iproute.x86_64 autoconf automake make cmake libtool libtool-ltdl libtool-ltdl-devel libpng.x86_64 freetype.x86_64 libjpeg-turbo.x86_64 libjpeg-turbo-devel.x86_64 libjpeg-turbo-utils.x86_64 libpng-devel.x86_64 freetype-devel.x86_64 libjpeg-turbo-devel
+RUN yum -y install gdb vim zip nss gcc gcc-c++ net-tools wget htop lsof unzip bzip2 curl-devel libcurl-devel patch zlib-devel epel-release perl-ExtUtils-MakeMaker expat-devel gettext-devel openssl-devel iproute.x86_64 autoconf automake make cmake libtool libtool-ltdl libtool-ltdl-devel libpng.x86_64 freetype.x86_64 libjpeg-turbo.x86_64 libjpeg-turbo-devel.x86_64 libjpeg-turbo-utils.x86_64 libpng-devel.x86_64 freetype-devel.x86_64 libjpeg-turbo-devel
 RUN wget -O /etc/yum.repos.d/CentOS-Base.repo http://mirrors.aliyun.com/repo/Centos-7.repo
 RUN yum -y update
 RUN yum clean all
