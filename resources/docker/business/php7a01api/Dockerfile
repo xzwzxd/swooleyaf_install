@@ -1,6 +1,5 @@
 FROM system-php7
 MAINTAINER jiangwei "jiangwei07061625@163.com"
-LABEL image.title="a01项目api模块" image.version="1.0.0" image.desc="基于PHP7系统环境构建" image.tag="business-php7a01api"
 ENV SYDIR_DOWNLOAD /home/download
 WORKDIR $SYDIR_DOWNLOAD
 

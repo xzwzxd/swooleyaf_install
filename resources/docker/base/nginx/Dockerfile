@@ -1,6 +1,5 @@
 FROM base-common
 MAINTAINER jiangwei "jiangwei07061625@163.com"
-LABEL image.title="nginx基础环境" image.version="1.0.0" image.desc="基于全局基础环境构建" image.tag="base-nginx"
 ENV SYDIR_DOWNLOAD=/home/download
 ENV LUAJIT_LIB=/usr/local/luajit/lib
 ENV LUAJIT_INC=/usr/local/luajit/include/luajit-2.0
@@ -12,13 +11,15 @@ RUN source /etc/profile
 WORKDIR $SYDIR_DOWNLOAD
 
 # git
+ARG GIT_USERNAME
+ARG GIT_USEREMAIL
 COPY ./resources/linux/git-2.10.2.tar.gz $SYDIR_DOWNLOAD/git-2.10.2.tar.gz
 RUN yum -y remove git
 RUN mkdir /usr/local/git
 RUN tar -xzf git-2.10.2.tar.gz
 RUN cd git-2.10.2/ && ./configure --prefix=/usr/local/git && make all && make install
 RUN rm -rf git-2.10.2/ && rm -rf git-2.10.2.tar.gz
-RUN git config --global user.name "jiangwei" && git config --global user.email "jiangwei07061625@163.com"
+RUN git config --global user.name "${GIT_USERNAME}" && git config --global user.email "${GIT_USEREMAIL}"
 
 # pcre
 COPY ./resources/linux/pcre-8.42.tar.gz $SYDIR_DOWNLOAD/pcre-8.42.tar.gz
@@ -35,12 +36,12 @@ RUN cd zlib-1.2.11/ && ./configure --prefix=/usr/local/zlib && make && make inst
 RUN rm -rf zlib-1.2.11/
 
 # openssl
-COPY ./resources/nginx/openssl-1.0.2p.tar.gz $SYDIR_DOWNLOAD/openssl-1.0.2p.tar.gz
+COPY ./resources/linux/openssl-1.0.2p.tar.gz $SYDIR_DOWNLOAD/openssl-1.0.2p.tar.gz
 RUN mkdir /usr/local/openssl
 RUN tar -zxvf openssl-1.0.2p.tar.gz
 RUN cd openssl-1.0.2p/ && ./config --prefix=/usr/local/openssl shared zlib && make && make install && echo "/usr/local/openssl/lib" >> /etc/ld.so.conf && ldconfig
 RUN rm -rf openssl-1.0.2p/
-RUN mv /usr/bin/openssl /usr/bin/openssl.old && mv /usr/include/openssl /usr/include/openssl.old && ln -s /usr/local/openssl/bin/openssl /usr/bin/openssl && ln -s /usr/local/openssl/include/openssl /usr/include/openssl
+RUN ln -s /usr/local/openssl/bin/openssl /usr/bin/openssl && ln -s /usr/local/openssl/include/openssl /usr/include/openssl
 
 # nghtt2
 COPY ./resources/linux/nghttp2-1.26.0.tar.bz2 $SYDIR_DOWNLOAD/nghttp2-1.26.0.tar.bz2

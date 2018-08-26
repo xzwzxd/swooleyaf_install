@@ -1,6 +1,5 @@
 FROM base-nginx
 MAINTAINER jiangwei "jiangwei07061625@163.com"
-LABEL image.title="nginx系统环境" image.version="1.0.0" image.desc="基于nginx基础环境构建" image.tag="system-nginx"
 ENV SYDIR_DOWNLOAD /home/download
 WORKDIR $SYDIR_DOWNLOAD
 

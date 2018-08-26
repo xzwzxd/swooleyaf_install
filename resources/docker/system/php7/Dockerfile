@@ -1,6 +1,5 @@
 FROM base-php7
 MAINTAINER jiangwei "jiangwei07061625@163.com"
-LABEL image.title="PHP7系统环境" image.version="1.0.0" image.desc="基于PHP7基础环境构建" image.tag="system-php7"
 ENV SYDIR_DOWNLOAD /home/download
 RUN yum -y install libxslt libxml2 libxml2-devel mysql-devel openldap openldap-devel gmp-devel
 WORKDIR $SYDIR_DOWNLOAD
