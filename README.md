@@ -1,6 +1,11 @@
 # 介绍
 - 拉取项目需要安装git和git-lfs,有部分文件是git-lfs上传
 
+# docker-compose安装
+    cp resources/linux/docker-compose-Linux-x86_64 /usr/local/bin/docker-compose
+    chmod +x /usr/local/bin/docker-compose
+    docker-compose --version
+
 # python3安装(centos7)
     wget https://www.python.org/ftp/python/3.6.4/Python-3.6.4.tar.xz
     mkdir /usr/local/python3
