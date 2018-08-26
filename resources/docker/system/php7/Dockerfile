@@ -6,7 +6,7 @@ WORKDIR $SYDIR_DOWNLOAD
 
 # php7
 COPY ./resources/php7/php-7.1.21.tar.gz $SYDIR_DOWNLOAD/php-7.1.21.tar.gz
-RUN mkdir /tmp/swoolyaf && mkdir /home/configs/yaconf-cli && mkdir /home/configs/yaconf-fpm && mkdir /home/logs/seaslog-cli && mkdir /home/logs/seaslog-fpm && mkdir /usr/local/php7
+RUN mkdir /tmp/swooleyaf && mkdir /home/configs/yaconf-cli && mkdir /home/configs/yaconf-fpm && mkdir /home/logs/seaslog-cli && mkdir /home/logs/seaslog-fpm && mkdir /usr/local/php7
 RUN tar -zxvf php-7.1.21.tar.gz
 RUN cd php-7.1.21/ && ./configure --prefix=/usr/local/php7 --exec-prefix=/usr/local/php7 --bindir=/usr/local/php7/bin --sbindir=/usr/local/php7/sbin --includedir=/usr/local/php7/include --libdir=/usr/local/php7/lib/php --mandir=/usr/local/php7/php/man --with-config-file-path=/usr/local/php7/etc --with-mysql-sock=/usr/local/mysql/mysql.sock --with-zlib=/usr/local/zlib --with-mhash --with-openssl=/usr/local/openssl --with-mysqli=shared,mysqlnd --with-pdo-mysql=shared,mysqlnd --with-iconv --enable-zip --enable-inline-optimization --disable-debug --disable-rpath --enable-shared --enable-xml --enable-pcntl --enable-bcmath --enable-mysqlnd --enable-sysvsem --with-mysqli --enable-embedded-mysqli  --with-pdo-mysql --enable-shmop --enable-mbregex --enable-mbstring --enable-ftp --enable-sockets --with-xmlrpc --enable-soap --without-pear --with-gettext --enable-session --with-curl --enable-opcache --enable-fpm --without-gdbm --enable-fileinfo --with-gmp && make && make install
 COPY ./configs/swooleyaf/php7/php-cli.ini /usr/local/php7/etc/php-cli.ini
@@ -15,7 +15,7 @@ COPY ./configs/swooleyaf/php7/www.conf /usr/local/php7/etc/php-fpm.d/www.conf
 COPY ./configs/swooleyaf/php7/php7-fpm.service /lib/systemd/system/php7-fpm.service
 RUN chmod 754 /lib/systemd/system/php7-fpm.service
 RUN groupadd www && useradd -g www www -s /sbin/nologin && chown -R www /home/logs/seaslog-fpm && chgrp -R www /home/logs/seaslog-fpm
-RUN cp sapi/fpm/init.d.php-fpm /etc/init.d/php7-fpm && chmod +x /etc/init.d/php7-fpm
+RUN cp php-7.1.21/sapi/fpm/init.d.php-fpm /etc/init.d/php7-fpm && chmod +x /etc/init.d/php7-fpm
 RUN cp /usr/local/php7/etc/php-fpm.conf.default /usr/local/php7/etc/php-fpm.conf
 RUN cp -frp /usr/lib64/libldap* /usr/lib/
 RUN cd php-7.1.21/ext/ldap/ && /usr/local/php7/bin/phpize && ./configure --with-php-config=/usr/local/php7/bin/php-config && make && make install
