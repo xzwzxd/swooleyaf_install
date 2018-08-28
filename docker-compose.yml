@@ -51,17 +51,3 @@ services:
       image_title: "PHP7系统环境"
       image_version: "1.0.0"
       image_desc: "基于PHP7基础环境构建"
-  businessphp7a01api:
-    build:
-      context: .
-      dockerfile: ./resources/docker/business/php7a01api/Dockerfile
-      args:
-        - MODULE_PORT=7100
-    image: business-php7a01api
-    labels:
-      image_title: "a01项目api模块"
-      image_version: "1.0.0"
-      image_desc: "基于PHP7系统环境构建"
-    ports:
-      - "7100:7100"
-    command: -n sy_api -s start -module a01api -port 7100
