@@ -8,15 +8,15 @@ RUN mkdir /home/logs/nginx && mkdir /home/configs/nginx && mkdir /home/configs/n
 
 # libunwind
 COPY ./resources/nginx/libunwind-1.1.tar.gz $SYDIR_DOWNLOAD/libunwind-1.1.tar.gz
-RUN tar -zxvf libunwind-1.1.tar.gz && cd libunwind-1.1/ && CFLAGS=-fPIC ./configure --prefix=/usr && make CFLAGS=-fPIC && make CFLAGS=-fPIC install && rm -rf libunwind-1.1/ && rm -rf libunwind-1.1.tar.gz
+RUN tar -zxvf libunwind-1.1.tar.gz && cd libunwind-1.1/ && CFLAGS=-fPIC ./configure --prefix=/usr && make CFLAGS=-fPIC && make CFLAGS=-fPIC install && cd ../ && rm -rf libunwind-1.1/ && rm -rf libunwind-1.1.tar.gz
 
 # gperftools
 COPY ./resources/nginx/gperftools-2.1.tar.gz $SYDIR_DOWNLOAD/gperftools-2.1.tar.gz
-RUN tar -zxvf gperftools-2.1.tar.gz && cd gperftools-2.1/ && ./configure --prefix=/usr --enable-frame-pointers && make && make install && rm -rf gperftools-2.1/ && rm -rf gperftools-2.1.tar.gz && echo "/usr/local/lib" > /etc/ld.so.conf.d/usr_local_lib.conf && ldconfig && mkdir /tmp/tcmalloc && chmod 0777 /tmp/tcmalloc
+RUN tar -zxvf gperftools-2.1.tar.gz && cd gperftools-2.1/ && ./configure --prefix=/usr --enable-frame-pointers && make && make install && cd ../ && rm -rf gperftools-2.1/ && rm -rf gperftools-2.1.tar.gz && echo "/usr/local/lib" > /etc/ld.so.conf.d/usr_local_lib.conf && ldconfig && mkdir /tmp/tcmalloc && chmod 0777 /tmp/tcmalloc
 
 # LuaJIT
 COPY ./resources/nginx/LuaJIT-2.0.5.tar.gz $SYDIR_DOWNLOAD/LuaJIT-2.0.5.tar.gz
-RUN mkdir /usr/local/luajit && tar -zxvf LuaJIT-2.0.5.tar.gz && cd LuaJIT-2.0.5/ && make && make install PREFIX=/usr/local/luajit && rm -rf LuaJIT-2.0.5/ && rm -rf LuaJIT-2.0.5.tar.gz
+RUN mkdir /usr/local/luajit && tar -zxvf LuaJIT-2.0.5.tar.gz && cd LuaJIT-2.0.5/ && make && make install PREFIX=/usr/local/luajit && cd ../ && rm -rf LuaJIT-2.0.5/ && rm -rf LuaJIT-2.0.5.tar.gz
 
 # ngx_devel_kit
 COPY ./resources/nginx/ngx_devel_kit-0.2.19.tar.gz $SYDIR_DOWNLOAD/ngx_devel_kit-0.2.19.tar.gz
@@ -40,7 +40,7 @@ RUN tar -zxvf headers-more-nginx-module-0.33.tar.gz && mv headers-more-nginx-mod
 
 # nginx
 COPY ./resources/nginx/nginx-1.12.2.tar.gz $SYDIR_DOWNLOAD/nginx-1.12.2.tar.gz
-RUN mkdir /usr/local/nginx && tar -zxvf nginx-1.12.2.tar.gz && tar -zxvf pcre-8.42.tar.gz && tar -zxvf zlib-1.2.11.tar.gz && tar -zxvf openssl-1.0.2p.tar.gz && cd nginx-1.12.2/ && patch -p1 < /home/configs/nginx/modules/nginx_upstream_check_module/check_1.12.1+.patch && ./configure --prefix=/usr/local/nginx --with-pcre=$SYDIR_DOWNLOAD/pcre-8.42 --with-zlib=$SYDIR_DOWNLOAD/zlib-1.2.11 --with-openssl=$SYDIR_DOWNLOAD/openssl-1.0.2p --without-http_autoindex_module --without-http_ssi_module --with-http_ssl_module --with-http_stub_status_module --with-http_realip_module --with-http_gzip_static_module --with-http_v2_module --with-stream --with-stream_realip_module --with-stream_ssl_module --with-google_perftools_module --with-debug --add-module=/home/configs/nginx/modules/ngx_devel_kit --add-module=/home/configs/nginx/modules/lua-nginx-module --add-module=/home/configs/nginx/modules/nginx_upstream_check_module --add-module=/home/configs/nginx/modules/ngx_cache_purge --add-module=/home/configs/nginx/modules/headers-more-nginx-module --with-ld-opt="-Wl,-rpath,$LUAJIT_LIB" && make -j 4 && make install && rm -rf nginx-1.12.2/ && rm -rf nginx-1.12.2.tar.gz && rm -rf pcre-8.42/ && rm -rf pcre-8.42.tar.gz && rm -rf zlib-1.2.11/ && rm -rf zlib-1.2.11.tar.gz && rm -rf openssl-1.0.2p/ && rm -rf openssl-1.0.2p.tar.gz && rm -rf /usr/local/nginx/conf/nginx.conf
+RUN mkdir /usr/local/nginx && tar -zxvf nginx-1.12.2.tar.gz && tar -zxvf pcre-8.42.tar.gz && tar -zxvf zlib-1.2.11.tar.gz && tar -zxvf openssl-1.0.2p.tar.gz && cd nginx-1.12.2/ && patch -p1 < /home/configs/nginx/modules/nginx_upstream_check_module/check_1.12.1+.patch && ./configure --prefix=/usr/local/nginx --with-pcre=$SYDIR_DOWNLOAD/pcre-8.42 --with-zlib=$SYDIR_DOWNLOAD/zlib-1.2.11 --with-openssl=$SYDIR_DOWNLOAD/openssl-1.0.2p --without-http_autoindex_module --without-http_ssi_module --with-http_ssl_module --with-http_stub_status_module --with-http_realip_module --with-http_gzip_static_module --with-http_v2_module --with-stream --with-stream_realip_module --with-stream_ssl_module --with-google_perftools_module --with-debug --add-module=/home/configs/nginx/modules/ngx_devel_kit --add-module=/home/configs/nginx/modules/lua-nginx-module --add-module=/home/configs/nginx/modules/nginx_upstream_check_module --add-module=/home/configs/nginx/modules/ngx_cache_purge --add-module=/home/configs/nginx/modules/headers-more-nginx-module --with-ld-opt="-Wl,-rpath,$LUAJIT_LIB" && make -j 4 && make install && cd ../ && rm -rf nginx-1.12.2/ && rm -rf nginx-1.12.2.tar.gz && rm -rf pcre-8.42/ && rm -rf pcre-8.42.tar.gz && rm -rf zlib-1.2.11/ && rm -rf zlib-1.2.11.tar.gz && rm -rf openssl-1.0.2p/ && rm -rf openssl-1.0.2p.tar.gz && rm -rf /usr/local/nginx/conf/nginx.conf
 COPY ./configs/swooleyaf/nginx/nginx.conf /usr/local/nginx/conf/nginx.conf
 COPY ./configs/swooleyaf/nginx/nginx.service /lib/systemd/system/nginx.service
 RUN chmod 754 /lib/systemd/system/nginx.service
