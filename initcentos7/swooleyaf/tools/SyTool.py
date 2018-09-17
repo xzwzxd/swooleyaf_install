@@ -354,13 +354,13 @@ class SyTool():
             run('rm -rf imagick-3.4.3/ && rm -rf imagick-3.4.3.tgz')
 
         # 扩展SeasLog
-        extSeasLogLocal = ''.join([syDicts['path.package.local'], '/resources/php7/SeasLog-1.8.4.tgz'])
-        extSeasLogRemote = ''.join([syDicts['path.package.remote'], '/SeasLog-1.8.4.tgz'])
+        extSeasLogLocal = ''.join([syDicts['path.package.local'], '/resources/php7/Seaslog-1.8.6.tgz'])
+        extSeasLogRemote = ''.join([syDicts['path.package.remote'], '/Seaslog-1.8.6.tgz'])
         put(extSeasLogLocal, extSeasLogRemote)
         with cd(syDicts['path.package.remote']):
-            run('tar -zxvf SeasLog-1.8.4.tgz')
-            run('cd SeasLog-1.8.4/ && /usr/local/php7/bin/phpize && ./configure --with-php-config=/usr/local/php7/bin/php-config && make && make install')
-            run('rm -rf SeasLog-1.8.4/ && rm -rf SeasLog-1.8.4.tgz')
+            run('tar -zxvf Seaslog-1.8.6.tgz')
+            run('cd Seaslog-1.8.6/ && /usr/local/php7/bin/phpize && ./configure --with-php-config=/usr/local/php7/bin/php-config && make && make install')
+            run('rm -rf Seaslog-1.8.6/ && rm -rf Seaslog-1.8.6.tgz')
 
         # 扩展mongodb
         extMongodbLocal = ''.join([syDicts['path.package.local'], '/resources/php7/mongodb-1.5.2.tgz'])
@@ -408,13 +408,13 @@ class SyTool():
             run('rm -rf yaf-3.0.7/ && rm -rf yaf-3.0.7.tgz')
 
         # 扩展swoole
-        extSwooleLocal = ''.join([syDicts['path.package.local'], '/resources/php7/swoole-4.0.4.tgz'])
-        extSwooleRemote = ''.join([syDicts['path.package.remote'], '/swoole-4.0.4.tgz'])
+        extSwooleLocal = ''.join([syDicts['path.package.local'], '/resources/php7/swoole-4.1.2.tgz'])
+        extSwooleRemote = ''.join([syDicts['path.package.remote'], '/swoole-4.1.2.tgz'])
         put(extSwooleLocal, extSwooleRemote)
         with cd(syDicts['path.package.remote']):
-            run('tar -zxvf swoole-4.0.4.tgz')
-            run('cd swoole-4.0.4/ && /usr/local/php7/bin/phpize && ./configure --with-php-config=/usr/local/php7/bin/php-config --with-jemalloc-dir=/usr/local/jemalloc --enable-openssl --enable-http2 && make && make install')
-            run('rm -rf swoole-4.0.4/ && rm -rf swoole-4.0.4.tgz')
+            run('tar -zxvf swoole-4.1.2.tgz')
+            run('cd swoole-4.1.2/ && /usr/local/php7/bin/phpize && ./configure --with-php-config=/usr/local/php7/bin/php-config --with-jemalloc-dir=/usr/local/jemalloc --enable-openssl --enable-http2 && make && make install')
+            run('rm -rf swoole-4.1.2/ && rm -rf swoole-4.1.2.tgz')
 
     # 配置java环境
     @staticmethod
